@@ -1,7 +1,14 @@
-MIT License
+# Third-party notices
+
+Nii Orchestrator is adapted from Feature Orchestrator in
+https://github.com/ski043/Skills/tree/main/skills/feature-orchestrator.
+
+The notice below applies to material derived from that project. It does not
+grant a license to original Nii Orchestrator additions.
+
+## Feature Orchestrator — MIT License
 
 Copyright (c) 2026 Jan Marshal
-Copyright (c) 2026 RaNiiJohnson (Nii Orchestrator additions)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

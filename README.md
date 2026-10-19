@@ -1,107 +1,107 @@
 # Nii Orchestrator
 
-Préparer un projet complet, puis le réaliser progressivement : **un lot vérifié à la fois, avec un bilan avant de continuer**.
+Scope a complete project, then deliver it progressively: **one verified batch at a time, with a delivery report before continuing**.
 
-Nii Orchestrator aide à cadrer le produit, à rédiger un prompt d'implémentation pour une nouvelle session et à préparer le passage de relais vers un autre chat. Il s'inspire de [Feature Orchestrator](https://github.com/ski043/Skills/tree/main/skills/feature-orchestrator), avec une différence centrale : l'exécution s'arrête après chaque lot livré au lieu de poursuivre toute la feuille de route sans interruption.
+Nii Orchestrator helps refine product decisions, prepare a complete implementation prompt for a fresh session, and hand work off to the next chat. It is adapted from [Feature Orchestrator](https://github.com/ski043/Skills/tree/main/skills/feature-orchestrator), with a central change: execution stops after each delivered batch instead of continuing through the entire roadmap unattended.
 
 ## Installation
 
-Prérequis : Node.js avec `npx`, un agent compatible avec les skills, et des outils de développement adaptés au projet à réaliser.
+Requirements: Node.js with `npx`, a skill-compatible agent, and the development tools required by your project.
 
-Pour une installation personnelle accessible dans plusieurs projets :
+Install globally to use the skill across projects:
 
 ```bash
 npx skills add RaNiiJohnson/nii-orchestrator --skill nii-orchestrator --global
 ```
 
-Pour installer seulement dans le projet courant, exécuter depuis sa racine :
+Or install only in the current project, from its root directory:
 
 ```bash
 npx skills add RaNiiJohnson/nii-orchestrator --skill nii-orchestrator
 ```
 
-Suivre les choix proposés par l'installateur pour l'agent concerné. Ouvrir ensuite une nouvelle session de l'agent pour qu'il découvre le skill.
+Follow the installer's prompts to select your agent. Start a new agent session after installation so it can discover the skill.
 
-Pour inspecter les fichiers avant installation :
+To inspect the files before installing:
 
 ```bash
 git clone https://github.com/RaNiiJohnson/nii-orchestrator.git
 ```
 
-Le skill complet se trouve dans `nii-orchestrator/`. Pour une installation manuelle personnelle dans Codex, copier ce dossier complet dans `~/.agents/skills/nii-orchestrator/`, références et métadonnées incluses. Ne pas écraser une installation existante contenant des modifications personnelles.
+The complete skill is at the root of the cloned `nii-orchestrator/` directory. For a manual personal installation in Codex, copy that directory to `~/.agents/skills/nii-orchestrator/`, including its references and agent metadata. Preserve any existing installation with personal modifications.
 
-## Utilisation avec Codex
+## Using the skill with Codex
 
-### Cadrer un projet
-
-```text
-$nii-orchestrator Cadre mon projet et prépare une réalisation par lots. Commençons par préciser les utilisateurs, les fonctions et les limites de la première version.
-```
-
-L'agent discute et inspecte les éléments existants ; il ne commence pas à modifier l'application pendant ce cadrage. Les propositions ne deviennent pas automatiquement des décisions validées.
-
-### Préparer le prompt de réalisation
+### Scope a project
 
 ```text
-$nii-orchestrator Les choix du produit sont arrêtés. Prépare le prompt complet avec arrêt après chaque lot prêt pour une PR.
+$nii-orchestrator Help me scope my project and prepare staged delivery. Start by clarifying its users, features, and first-version boundaries.
 ```
 
-Le skill demande les modèles et efforts souhaités pour les trois rôles de sous-agents. Si le message de compilation les précise déjà, il confirme les valeurs et poursuit sans redemander les mêmes informations.
+The agent discusses the product and inspects existing evidence. It does not modify application code during this phase, and suggestions do not automatically become accepted requirements.
 
-| Rôle | Responsabilité |
+### Prepare the implementation prompt
+
+```text
+$nii-orchestrator The product decisions are settled. Prepare the complete implementation prompt with a stop after each PR-ready batch.
+```
+
+The skill asks for the model and effort settings for three sub-agent roles. If the compilation request already specifies the complete roster, it confirms those settings without asking for them again.
+
+| Role | Responsibility |
 | --- | --- |
-| Lead | Agent principal de la session de réalisation ; conserve son modèle de lancement. |
-| Implementer | Modifications bornées, tests et corrections confirmées. |
-| Researcher | Documentation, exploration en lecture seule et vérifications d'API. |
-| Reviewer | Revue indépendante en lecture seule, avec un contexte neuf. |
+| Lead | Main implementation agent; keeps the model used to launch its session. |
+| Implementer | Bounded code changes, tests, and confirmed review fixes. |
+| Researcher | Documentation checks, read-only exploration, and API verification. |
+| Reviewer | Independent, read-only review in a fresh context. |
 
-Les modèles ne sont pas imposés par le skill. Leur disponibilité et leurs réglages doivent être vérifiés dans l'environnement réel ; une substitution doit être annoncée et acceptée.
+The skill does not impose model versions. Availability and settings must be checked in the actual environment; substitutions must be disclosed and accepted.
 
-Copier le prompt produit dans une nouvelle session ouverte sur le bon dépôt. Cette session prépare la feuille de route complète, puis réalise uniquement le premier lot inachevé dont les dépendances sont satisfaites.
+Copy the generated prompt into a fresh session opened on the correct repository. That session prepares the complete roadmap, then implements only the first unfinished batch whose dependencies are satisfied.
 
-### Passer le relais
+### Hand off to the next chat
 
 ```text
-$nii-orchestrator Prépare le passage de relais vers le prochain chat en vérifiant le dépôt, les tâches, les tests et l'état Git actuels.
+$nii-orchestrator Prepare the handoff to the next chat, checking the current repository, tasks, test evidence, and Git state.
 ```
 
-Le passage de relais contient la mission suivante, les décisions, les documents utiles, les vérifications réellement effectuées, les fichiers non enregistrés et les blocages. Il peut servir dans le même chat ou dans un nouveau, sans reprendre toute la conversation.
+The handoff carries one next mission, accepted decisions, relevant documents, checks actually performed, dirty files, and blockers. You can use it in the same chat or a new one without replaying the whole conversation.
 
-## Ce qui se passe à chaque lot
+## What happens in each batch
 
-1. Annonce de l'objectif, du périmètre et du résultat à essayer.
-2. Réalisation avec des nouvelles aux jalons significatifs.
-3. Vérifications et, pour les interfaces, observation et interaction dans le navigateur pendant le développement.
-4. Revue indépendante, confirmation des problèmes et corrections ; au maximum deux cycles complets de revue et remédiation.
-5. Mise à jour des documents du projet et bilan de livraison.
-6. Arrêt avant le lot suivant, en attendant une demande explicite de continuer.
+1. Announce the goal, scope, and result you will be able to try.
+2. Implement with updates at meaningful milestones.
+3. Verify the work; for UI changes, inspect and interact with the running interface throughout development.
+4. Run independent review, confirm findings, and fix accepted issues, with at most two complete review/remediation cycles.
+5. Update project records and deliver a report.
+6. Stop before the next batch and wait for an explicit request to continue.
 
-Un lot bloqué ou partiellement vérifié est présenté comme tel. L'agent ne doit pas le déclarer terminé pour avancer dans la feuille de route.
+A blocked or partly verified batch is reported as such. The agent must not mark it complete merely to advance the roadmap.
 
-## Lots et pull requests
+## Batches and pull requests
 
-Un lot est un résultat cohérent et vérifiable. Une mission de sous-agent, un commit et une PR sont des objets distincts : le découpage dépend du projet réel.
+A batch is a coherent, verifiable outcome. A sub-agent workstream, a commit, and a pull request are separate concepts; their boundaries depend on the actual project.
 
-Le bilan fournit le contenu de la PR proposée, les contrôles et l'état Git. Sans accès au dépôt distant, le lot peut être livré localement avec une proposition de PR.
+The delivery report includes the proposed PR contents, checks, and Git state. Without remote access, a batch can be delivered locally with a concrete PR proposal.
 
-**Dire « continue » autorise le prochain lot, pas un push, une ouverture de PR, une fusion ou un déploiement.** Ces actions externes demandent une autorisation applicable et distincte. Une PR ouverte n'autorise pas automatiquement le lot suivant.
+**Saying “continue” authorizes the next batch, not pushing, opening a PR, merging, or deploying.** Those external actions require separate applicable authorization. An open PR does not automatically authorize the next batch.
 
-## Compatibilité et limites
+## Compatibility and limitations
 
-- Le dossier contient des instructions Markdown et des métadonnées d'invocation explicite pour Codex.
-- Dans Claude Code ou un autre environnement compatible, utiliser le mécanisme natif d'invocation et vérifier les noms de modèles, les efforts et la disponibilité des sous-agents ; les identifiants Codex ne sont pas des identifiants portables.
-- Le skill prépare des consignes : ce n'est pas un service qui surveille les chats ni un moteur qui crée des PR automatiquement.
-- Les modes de l'environnement, ses autorisations et ses limites de concurrence restent applicables.
-- Aucun compte, secret, abonnement ou outil externe n'est créé par l'installation de ce skill.
+- The repository includes Markdown instructions and explicit-invocation metadata for Codex.
+- In Claude Code or another compatible environment, use its native invocation mechanism and verify model names, effort controls, and sub-agent availability. Codex model identifiers are not portable aliases.
+- The skill prepares instructions; it is not a service that monitors chats or automatically creates pull requests.
+- The host's modes, permissions, and concurrency limits still apply.
+- Installing this skill does not create accounts, credentials, subscriptions, or external tools.
 
-## Fichiers
+## Files
 
-- [SKILL.md](SKILL.md) : instructions principales.
-- [Modèles des sous-agents](references/model-roster.md) : choix et contraintes de plateforme.
-- [Contrat d'exécution progressive](references/execution-prompt-contract.md) : structure des prompts, checkpoints et passages de relais.
+- [SKILL.md](SKILL.md): primary instructions.
+- [Model roster](references/model-roster.md): model choices and platform constraints.
+- [Progressive execution contract](references/execution-prompt-contract.md): prompt structure, checkpoints, and handoffs.
 
-## Licence et origine
+## Rights and attribution
 
-Distribué sous la [licence MIT du dépôt](LICENSE).
+No license is granted here for original Nii Orchestrator additions. Copyright (c) 2026 RaNiiJohnson. All rights reserved for those additions.
 
-Nii Orchestrator est une adaptation de Feature Orchestrator. La notice existante de Jan Marshal est conservée dans la licence, avec une attribution distincte aux ajouts Nii Orchestrator de RaNiiJohnson.
+Material derived from Feature Orchestrator retains its original copyright and MIT notice in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). That notice applies to the upstream material, not to the original additions in this repository.

@@ -2,7 +2,6 @@
 name: nii-orchestrator
 description: Shape projects into staged implementation prompts and evidence-backed handoffs. Use when asked to scope a project, prepare a full prompt with a stop after each PR-ready batch, or brief the next chat.
 disable-model-invocation: true
-license: MIT
 ---
 
 # Nii Orchestrator
