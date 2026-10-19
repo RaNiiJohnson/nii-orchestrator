@@ -1,0 +1,7 @@
+interface:
+  display_name: "Nii Orchestrator"
+  short_description: "Scope projects and hand off one verified batch at a time"
+  brand_color: "#DF4F55"
+  default_prompt: "Use $nii-orchestrator to scope my project, prepare a complete implementation prompt with a stop after each verified PR-ready batch, or brief the next chat."
+policy:
+  allow_implicit_invocation: false
